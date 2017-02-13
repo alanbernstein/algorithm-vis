@@ -1,1 +1,3 @@
-visualizations for neat algorithms
+browser visualizations for neat algorithms
+
+written by a guy who doesn't know javascript
