@@ -127,11 +127,14 @@ function EM_init(x, C) {
     for(var n=0; n<C; n++) {
         for(var k=0; k<x.length; k++) {
             var prob = multivariate_normal_pdf(x[k], mu_est[n], S_est[n])
-            l[k] += numeric.log(numeric.dot(prob, tau_est[n]))
+            var d = numeric.dot(prob, tau_est[n])
+            l[k] += Math.log(d)  // why doesnt numeric work here?
         }
     }
 
     return {
+        C: C,
+        N: x.length,
         tau: tau_est,
         mu: mu_est,
         S: S_est,
@@ -141,11 +144,11 @@ function EM_init(x, C) {
 
 function EM_core(x, estimate) {
     // E step
-    var A = init_array(x.length, C, 0)
-    for(var n=0; n<C; n++) {
+    var A = init_array(x.length, estimate.C, 0)
+    for(var n=0; n<estimate.C; n++) {
         for(var k=0; k<x.length; k++) {
-            var prob = multivariate_normal_pdf(x[k], mu_est[n], S_est[n])
-            A[k, n] = tau_est[n] * prob
+            var prob = multivariate_normal_pdf(x[k], estimate.mu[n], estimate.S[n])
+            A[k, n] = estimate.tau[n] * prob
         }
     }
 
