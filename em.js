@@ -157,7 +157,7 @@ function EM_core(x, estimate) {
 }
 
 function standard_normal_pdf(x) {
-    return 1/Math.sqrt(2*pi) * Math.exp(-x*x/2)
+    return 1/Math.sqrt(2*Math.PI) * Math.exp(-x*x/2)
 }
 
 function normal_pdf(x, mu, s) {
